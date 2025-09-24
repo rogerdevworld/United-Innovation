@@ -3,15 +3,16 @@ import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'node:path'
 import AutoImport from 'unplugin-auto-import/vite'
 
+// The 'base' path should be defined based on your deployment needs.
+// For most cases, it's just the root '/'.
 const base = process.env.BASE_PATH || '/'
-const isPreview = process.env.IS_PREVIEW  ? true : false;
-// https://vite.dev/config/
+
 export default defineConfig({
   define: {
-   __BASE_PATH__: JSON.stringify(base),
-   __IS_PREVIEW__: JSON.stringify(isPreview)
+    __BASE_PATH__: JSON.stringify(base),
   },
-  plugins: [react(),
+  plugins: [
+    react(),
     AutoImport({
       imports: [
         {
@@ -68,7 +69,7 @@ export default defineConfig({
   base,
   build: {
     sourcemap: true,
-    outDir: 'out',
+    outDir: 'dist', // Use 'dist' as the standard output directory for Vite
   },
   resolve: {
     alias: {
